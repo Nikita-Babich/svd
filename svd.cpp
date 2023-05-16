@@ -15,13 +15,12 @@ typedef struct{
 
 MAT* mat_create_with_type(unsigned int rows, unsigned int cols){
 	//Can ptr still be NULL after typecasting?
-	MAT* ptr = (MAT*)malloc( sizeof(unsigned int)*2 + sizeof(float)*rows*cols );
-	if(ptr == NULL){
-		free(ptr);
-		return NULL;
-	}
+	float* array_ptr = (float*)malloc( sizeof(float)*cols*rows );
+	if( array_ptr == NULL) {return NULL;} //do not create a struct if not enough space for the array
+	MAT* ptr = (MAT*)malloc( sizeof(unsigned int)*2 + sizeof(int) );
 	ptr->rows = rows;
 	ptr->cols = cols;
+	ptr->elem = array_ptr;
 	return ptr;
 }
 
@@ -72,7 +71,7 @@ int main(){
 	mat_print(a);
 	mat_destroy(a);
 	
-	MAT* b = mat_create_with_type(3, 10);
+	MAT* b = mat_create_with_type(3, 5);
 	//mat_random(b);
 	mat_print(b);
 	mat_destroy(b);
