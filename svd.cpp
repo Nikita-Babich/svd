@@ -52,9 +52,18 @@ void mat_wipe(MAT* mat){
 	return;
 }
 
-//void mat_unit(MAT* mat){
-//	
-//}
+void mat_unit(MAT* mat){
+	for(int i=0; i < mat->rows; i++){	
+		for(int j=0; j < mat->cols; j++){
+			if(i==j){
+				ELEM(mat,i,j) = 0;
+			}else{
+				ELEM(mat,i,j) = 1;
+			}
+		}
+	}
+	return;
+}
 
 void mat_random(MAT* mat){
 	int length = mat->rows * mat->cols;
@@ -62,8 +71,6 @@ void mat_random(MAT* mat){
 	for(int i=0; i < length; i++){	
 		mat->elem[i] = (float)(rand()/(float)RAND_MAX*2-1);
 	}
-	//ELEM(mat,i,j) = (rand()/(float)RAND_MAX); //problem
-	//(mat->elem)[i * (mat->cols) + j] = (rand()/(float)RAND_MAX); //problem
 	return;
 }
 
@@ -90,9 +97,6 @@ int main(){
 	mat_random(b);
 	mat_print(b);
 	mat_destroy(b);
-	
-	
-	
 	
 		
 }
