@@ -6,6 +6,7 @@
 
 #define nl printf("\n")
 #define ELEM(mat,i,j) (mat->elem)[i * (mat->cols) + j]
+
 typedef struct{
 	unsigned int rows;
 	unsigned int cols;
@@ -55,11 +56,11 @@ void mat_wipe(MAT* mat){
 //	
 //}
 
-void mat_random(MAT* mat){ //none of the versions works
+void mat_random(MAT* mat){
 	int length = mat->rows * mat->cols;
-	printf("%d",length);
+	//printf("%d",length);
 	for(int i=0; i < length; i++){	
-		mat->elem[i] = 5;//(float)(rand()/(float)RAND_MAX);
+		mat->elem[i] = (float)(rand()/(float)RAND_MAX*2-1);
 	}
 	//ELEM(mat,i,j) = (rand()/(float)RAND_MAX); //problem
 	//(mat->elem)[i * (mat->cols) + j] = (rand()/(float)RAND_MAX); //problem
@@ -71,7 +72,7 @@ void mat_print(MAT* mat){
 	nl;
 	for(int i=0; i < mat->rows; i++){
 		for(int j=0; j < mat->cols; j++){
-			printf("\t%1.1e", ELEM(mat,i,j));
+			printf("\t%+2.2f", ELEM(mat,i,j));
 		}
 		nl;
 	}
@@ -85,8 +86,8 @@ int main(){
 	mat_print(a);
 	mat_destroy(a);
 	
-	MAT* b = mat_create_with_type(3, 5);
-	//mat_random(b);
+	MAT* b = mat_create_with_type(3, 7);
+	mat_random(b);
 	mat_print(b);
 	mat_destroy(b);
 	
