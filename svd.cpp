@@ -6,7 +6,6 @@
 
 #define nl printf("\n")
 #define ELEM(mat,i,j) (mat->elem)[i * (mat->cols) + j]
-
 typedef struct{
 	unsigned int rows;
 	unsigned int cols;
@@ -33,7 +32,22 @@ MAT* mat_create_with_type(unsigned int rows, unsigned int cols){
 //}
 
 void mat_destroy(MAT* mat){
+	free(mat->elem);
+	mat->elem = NULL;
 	free(mat);
+	mat = NULL;
+	return;
+}
+
+void mat_wipe(MAT* mat){
+	//wipe out memory if the data was sensitive
+	for(int i=0; i< mat->cols * mat->rows; i++){
+		mat->elem[i] = 0;
+	}
+	free(mat->elem);
+	mat->elem = NULL;
+	free(mat);
+	mat = NULL;
 	return;
 }
 
